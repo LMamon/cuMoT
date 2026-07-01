@@ -8,7 +8,7 @@ cuMoT combines TensorRT object detection, Kalman motion prediction, data associa
 
 ## Demo
 
-[![cuMoT demo](https://img.youtube.com/vi/YOUTUBE_VIDEO_ID/maxresdefault.jpg)](https://www.youtube.com/watch?v=YOUTUBE_VIDEO_ID)
+[![cuMoT demo](https://img.youtube.com/vi/_ekE3BxJNbw/maxresdefault.jpg)](https://youtu.be/_ekE3BxJNbw)
 
 ---
 
