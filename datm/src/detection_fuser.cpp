@@ -5,7 +5,7 @@
 #include <algorithm>
 
 #include "association/data_association.h"
-#include "detection/detection_engine.h"
+#include "detection/detector_engine.h"
 #include "association/iou.h"
 
 std::vector<Detection> DetectionFuser::merge(const std::vector<Detection>& objDetections,
