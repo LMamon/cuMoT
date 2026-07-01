@@ -20,6 +20,7 @@ add_executable(datm
     datm/src/motion_detector.cpp
     datm/src/tracker.cpp
     datm/src/visualizer.cpp
+    datm/src/vpi_klt_tracker.cpp
     kernels/src/gpu_iou.cu
     kernels/src/nms.cu
     kernels/src/orb_descriptor.cu
