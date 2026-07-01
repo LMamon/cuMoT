@@ -21,9 +21,9 @@ AssociationResult associate(const std::vector<Track>& tracks, const std::vector<
 
         return result;
     }
-    constexpr float ASSOCIATION_THRESHOLD = 0.25f;
-    constexpr float IOU_WEIGHT = 0.55f;
-    constexpr float APPEARANCE_WEIGHT = 0.45f;
+    constexpr float ASSOCIATION_THRESHOLD = 0.30f;
+    constexpr float IOU_WEIGHT = 0.65f;
+    constexpr float APPEARANCE_WEIGHT = 0.40f;
 
     size_t numTracks = tracks.size();
     size_t numDetections = detections.size();
@@ -107,23 +107,16 @@ AssociationResult associate(const std::vector<Track>& tracks, const std::vector<
     
     // fill result.unmatchedTracks
     // these tracks were not assigned a detection during
-    // the current frame and may need their lost-frame
-    // counter incremented by the tracker
+    // the current frame and may need their lost-frame counter incremented by the tracker
     for (size_t t = 0; t <numTracks; t++) {
-        if (!trackUsed[t]) {
-            result.unmatchedTracks.push_back(t);
-        }
+        if (!trackUsed[t]) result.unmatchedTracks.push_back(t);
     }
 
     // fill result.unmatchedDetections
-    // detections were not assigned to an existing
-    // track and may become new tracks
+    // detections were not assigned to an existing track and may become new tracks
     for (size_t d = 0; d < numDetections; d++) {
-        if (!detectionUsed[d]) {
-            result.unmatchedDetections.push_back(d);
-        }
+        if (!detectionUsed[d]) result.unmatchedDetections.push_back(d);
     }
-
     return result;
 }
 
@@ -158,15 +151,12 @@ AssociationResult associate(const std::vector<Box>& objBoxes, const std::vector<
             float score = scoreMatrix[o * numMotion + m];
 
             // ignore weak associations
-            if (score >= IOU_THRESHOLD) {
-                candidates.push_back({o, m, score});
-            }
+            if (score >= IOU_THRESHOLD) candidates.push_back({o, m, score});
         }
     }
 
     // highest confidence matches first
-    std::sort(candidates.begin(), candidates.end(),
-        [](const CandidateMatch& a, const CandidateMatch& b) {
+    std::sort(candidates.begin(), candidates.end(), [](const CandidateMatch& a, const CandidateMatch& b) {
             return a.score > b.score;
         });
 
@@ -193,15 +183,12 @@ AssociationResult associate(const std::vector<Box>& objBoxes, const std::vector<
 
     // unmatched detector boxes
     for (size_t o = 0; o < numObjects; o++) {
-        if (!objectUsed[o])
-            result.unmatchedTracks.push_back(o);
+        if (!objectUsed[o]) result.unmatchedTracks.push_back(o);
     }
 
     // unmatched motion boxes
     for (size_t m = 0; m < numMotion; m++) {
-        if (!motionUsed[m])
-            result.unmatchedDetections.push_back(m);
+        if (!motionUsed[m]) result.unmatchedDetections.push_back(m);
     }
-
     return result;
 }

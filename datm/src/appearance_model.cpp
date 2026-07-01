@@ -116,7 +116,6 @@ bool buildAppearanceModelFromROI(ORBContext& ctx, const cv::Mat& roi, Appearance
             vpiArrayUnlock(ctx.descriptors);
         }
     }
-
     vpiPyramidDestroy(pyramid);
     vpiImageDestroy(input);
 
