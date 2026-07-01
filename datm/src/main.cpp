@@ -14,14 +14,6 @@
 #include <string>
 #include <vector>
 
-// balloon-3 449
-// insect-1 200
-// stock-0 374 +
-// ball-1 114
-// stock-3 312 +
-// ball-2 198
-// boat-2 197
-
 const int DETECTOR_INTERVAL = 3;
 const int DETECTOR_WARMUP_FRAMES = 20;
 constexpr bool USE_MOG2 = false; // add cli args for this stuff
@@ -43,7 +35,6 @@ int main() {
 
     std::filesystem::create_directories(outputFolder);
 
-    // --- video writer for 3-panel output
     cv::VideoWriter writer;
     bool writerInitialized = false;
     
@@ -112,16 +103,6 @@ int main() {
 
             convertDetectorBoxesToPixels(detectorDetections, inputFrame.size());
         }
-
-        // const auto& objDetections = detectorDetections;
-        // std::vector<Detection> localDetections = localSearch.search(tracker.getTracks(), inputFrame);
-
-        // motionStart = Clock::now();
-        // std::vector<Detection> motDetections = motDetector.detections(inputFrame);
-        // motionEnd = Clock::now();
-        // std::vector<Detection> fusedDetections = DetectionFuser::merge(objDetections, motDetections);
-        // std::vector<Detection> trackerInputs;
-
         cv::Mat detectionPanel = inputFrame.clone();
 
         trackerStart = Clock::now();
@@ -129,10 +110,6 @@ int main() {
         trackerEnd = Clock::now();
 
         tracker.drawTracks(detectionPanel);
-
-        // --- metrics
-        // int foregroundPixels = cv::countNonZero(fgMask);
-        // double foregroundPercent = 100.0 * foregroundPixels / (fgMask.rows * fgMask.cols);
         
         metrics.activeTracks = tracker.getConfirmedTrackCount();
         metrics.frameNumber = i;
@@ -144,7 +121,6 @@ int main() {
         metrics.foregroundPercent = 0.0;
         metrics.inferenceMs = inferenceMs;
 
-        // cv::Mat combined = visualizer.createDebugView(inputFrame, fgMask, detectionPanel, metrics);
         cv::Mat combined = detectionPanel;
         // --- create video once
         if (!writerInitialized) {
@@ -161,14 +137,6 @@ int main() {
             writerInitialized = true;
         }
 
-        // cv::putText(detectionPanel,
-        //             detectorRan ? "DETECTOR" : "KLT",
-        //             {20, 40},
-        //             cv::FONT_HERSHEY_SIMPLEX,
-        //             1.0,
-        //             detectorRan ? cv::Scalar(0, 255, 255) : cv::Scalar(255, 255, 0),
-        //             2);
-        // --- write frame to mp4
         writerStart = Clock::now();
         writer.write(combined);
         writerEnd = Clock::now();
