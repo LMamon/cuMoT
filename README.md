@@ -1,6 +1,6 @@
 # cuMoT
 
-CUDA-accelerated multi-object tracking prototype targeting NVIDIA Jetson edge devices.
+real-time multi-object tracking prototype targeting NVIDIA Jetson edge devices.
 
 cuMoT combines TensorRT object detection, Kalman motion prediction, data association, appearance matching, and local visual tracking into a modular real-time perception pipeline. The project focuses on practical edge-AI tracking architecture: detector integration, track lifecycle management, GPU-accelerated association, and local tracker backends for maintaining object tracks between detector updates.
 
