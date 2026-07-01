@@ -16,6 +16,7 @@
 enum class DetectionSource {
     DETECTOR,
     MOTION,
+    LOCAL_TRACKER,
     FUSED
 };
 

@@ -135,7 +135,7 @@ std::vector<Detection> DetectorEngine::runInference(const cv::Mat& inputFrame) {
         }
 
         // skip low-confidence detections
-        if (bestScore < 0.24f)
+        if (bestScore < 0.25f)
             continue;
 
         Detection det;
