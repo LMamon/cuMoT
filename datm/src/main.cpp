@@ -26,9 +26,9 @@ const int DETECTOR_INTERVAL = 6;
 const int DETECTOR_WARMUP_FRAMES = 70;
 
 int main() {
-    std::string modelPath = "/home/rr-vzn/Development/Data/cuMoT/rtdetr-l.engine";
-    std::string inputFolder = "/home/rr-vzn/Development/Data/datasets/GenericMOT_JPEG_Sequence/boat-2/img1";
-    std::string outputFolder = "/home/rr-vzn/Development/Data/cuMoT/datm/outputs";
+    std::string modelPath = "...";
+    std::string inputFolder = "...";
+    std::string outputFolder = "...";
 
     std::filesystem::create_directories(outputFolder);
 
