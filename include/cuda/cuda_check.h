@@ -2,6 +2,8 @@
 #include <npp.h>
 #include <cstdio>
 #include <cstdlib>
+#include <vpi/VPI.h>
+#include <iostream>
 
 #define CUDA_CHECK(expr) do {                           \
     cudaError_t cuda_result = (expr);                   \
@@ -42,3 +44,14 @@
         exit(EXIT_FAILURE);                             \
     }                                                   \
 } while(0)
+
+#define VPI_CHECK(STMT) do {                             \
+    VPIStatus status = (STMT);                           \
+    if (status != VPI_SUCCESS) {                         \
+        char buffer[VPI_MAX_STATUS_MESSAGE_LENGTH];      \
+        vpiGetLastStatusMessage(buffer, sizeof(buffer)); \
+        std::cerr << vpiStatusGetName(status)            \
+                    << ": " << buffer << std::endl;      \
+        std::abort();                                    \
+    }                                                    \
+} while (0)
